@@ -1,14 +1,15 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from authentication.models import MyUser
 from django import forms
+from django.db.models.fields import BLANK_CHOICE_DASH
 
 
 class SignInForm(AuthenticationForm):
-    email = forms.EmailField(
+    username = forms.EmailField(
          label="",
          widget=forms.TextInput(attrs={
              'class': 'form-control',
-             'placeholder': 'email'
+             'placeholder': 'Email'
          })
     )
     password = forms.CharField(
@@ -36,11 +37,12 @@ class SignUpForm(UserCreationForm):
         })
     )
     type = forms.ChoiceField(
-        choices=MyUser.TYPE_CHOICES,
+        choices=BLANK_CHOICE_DASH + MyUser.TYPE_CHOICES,
         label="",
         widget=forms.Select(attrs={
-            'class': 'form-control'
-        })
+            'class': 'form-control',
+            'placeholder': 'Type'
+        }),
     )
     email = forms.EmailField(
         label="",

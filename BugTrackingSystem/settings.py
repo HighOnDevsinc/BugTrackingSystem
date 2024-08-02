@@ -109,6 +109,17 @@ USE_I18N = True
 USE_TZ = True
 
 
+STATIC_URL = '/static/'
+
+# directory where collectstatic will collect static files for deployment.
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Define the static files directories
+STATICFILES_DIRS = [
+    'static/',
+]
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 

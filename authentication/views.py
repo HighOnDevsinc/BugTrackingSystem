@@ -8,6 +8,23 @@ class HomeView(TemplateView):
     template_name = 'home.html'
 
 
+class SignInView(View):
+    def get(self, request):
+        form = SignInForm()
+        return render(request, 'sign_in.html', {'form': form})
+
+    def post(self, request):
+        form = SignInForm(request, data=request.POST)
+
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+        else:
+            form.add_error(None, 'Invalid email or password')
+            return render(request, 'sign_in.html', {'form': form})
+
+
 class SignUpView(View):
     def get(self, request):
         form = SignUpForm()
@@ -20,30 +37,6 @@ class SignUpView(View):
             login(request, user)
             return redirect('home')
         return render(request, 'sign_up.html', {'form': form})
-
-
-class SignInView(View):
-    def get(self, request):
-        form = SignInForm()
-        return render(request, 'sign_in.html', {'form': form})
-
-    def post(self, request):
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(
-            request,
-            username=username,
-            password=password,
-        )
-
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-        else:
-            form = SignInForm(request.POST)
-            form.add_error(None, 'Invalid username or password')
-            return render(request, 'sign_in.html', {'form': form})
 
 
 class SignOutView(TemplateView):
