@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -44,7 +45,7 @@ ROOT_URLCONF = 'BugTrackingSystem.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,6 +70,8 @@ DATABASES = {
         'NAME': BASE_DIR / config('DB_NAME'),
     }
 }
+
+AUTH_USER_MODEL = 'authentication.MyUser'
 
 
 # Password validation
@@ -104,6 +107,17 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+
+STATIC_URL = '/static/'
+
+# directory where collectstatic will collect static files for deployment.
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Define the static files directories
+STATICFILES_DIRS = [
+    'static/',
+]
 
 
 # Static files (CSS, JavaScript, Images)
