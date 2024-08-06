@@ -9,7 +9,7 @@
     <form method="POST" action="">
         {% csrf_token %}
         
-        {% include 'form_errors.html' %}
+        {% include 'form_error.html' %}
 
         {{ form.as_p }}
 

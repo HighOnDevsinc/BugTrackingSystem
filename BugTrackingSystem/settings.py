@@ -13,10 +13,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
+
+# config('DEBUG', default=False, cast=bool)
+
+# handler404 = 'your_app.views.custom_404'
 
 ALLOWED_HOSTS = []
 
+# 'localhost', '127.0.0.1'
 
 # Application definition
 
@@ -28,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authentication',
+    'project',
 ]
 
 MIDDLEWARE = [

@@ -7,6 +7,11 @@ from .forms import SignUpForm, SignInForm
 class HomeView(TemplateView):
     template_name = 'home.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('projects')
+        return super().dispatch(request, *args, **kwargs)
+
 
 class SignInView(View):
     def get(self, request):
@@ -19,7 +24,7 @@ class SignInView(View):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('home')
+            return redirect('projects')
         else:
             form.add_error(None, 'Invalid email or password')
             return render(request, 'sign_in.html', {'form': form})
@@ -45,3 +50,7 @@ class SignOutView(TemplateView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('home')
+
+
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)

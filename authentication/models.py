@@ -1,6 +1,7 @@
 from django.contrib.auth.models \
     import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
+from project.models import Project, DevelopedBy, AssuredBy
 
 
 class UserManager(BaseUserManager):
@@ -35,6 +36,16 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     type = models.CharField(max_length=10, choices=TYPE_CHOICES)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    developer_project = models.ManyToManyField(
+        Project,
+        related_name='developer_project',
+        through=DevelopedBy
+    )
+    qa_project = models.ManyToManyField(
+        Project,
+        related_name='qa_project',
+        through=AssuredBy
+    )
 
     objects = UserManager()
 
