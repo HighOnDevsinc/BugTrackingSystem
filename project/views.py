@@ -1,10 +1,12 @@
 from django.shortcuts import render # noqa
-from django.views.generic import ListView, \
-    DeleteView, \
-    CreateView, \
-    UpdateView, \
-    DetailView, \
-    View
+from django.views.generic import (
+    ListView,
+    DeleteView,
+    CreateView,
+    UpdateView,
+    DetailView,
+    View,
+    )
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy

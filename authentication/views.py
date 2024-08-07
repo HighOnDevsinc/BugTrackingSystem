@@ -4,15 +4,6 @@ from django.views.generic import TemplateView, View
 from .forms import SignUpForm, SignInForm
 
 
-class HomeView(TemplateView):
-    template_name = 'home.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect('projects')
-        return super().dispatch(request, *args, **kwargs)
-
-
 class SignInView(View):
     def get(self, request):
         form = SignInForm()
