@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+  <h1>{{ project.title }}</h1>
+  <p>{{ project.description }}</p>
+  <br><hr><br>
+  <div class="row">
+      <!-- QA Column -->
+      <div class="col-md-6">
+          <h4>QA's</h4>
+          <form id="qa-form" method="POST" action="{% url 'add_qa' project.id %}">
+              {% csrf_token %}
+              <div class="input-group mb-3">
+                  <select class="form-control" name="qa">
+                      {% for user in qa %}
+                          <option value="{{ user.id }}">{{ user.name }}</option>
+                      {% endfor %}
+                  </select>
+                  <div class="input-group-append">
+                      <button class="btn btn-primary" type="submit">Add</button>
+                  </div>
+              </div>
+          </form>
+          <ul id="qa-user-list">
+              {% for assured in assured_by %}
+                <li>
+                  <div class="d-flex justify-content-between">
+                    {{ assured.qa_id.name }}
+                    &nbsp; &nbsp;
+                    <form method="POST" action="{% url 'remove_qa' project.id assured.qa_id.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button class="btn btn-link p-0" type="submit" style="color: inherit;">
+                            <i class="fa fa-trash" style="color: red;"></i>
+                        </button>
+                    </form>
+                  </div>
+                </li>
+              {% endfor %}
+          </ul>
+      </div>
+      <!-- Developer Column -->
+      <div class="col-md-6">
+          <h4>Developer's</h4>
+          <form id="dev-form" method="POST" action="{% url 'add_developer' project.id %}">
+              {% csrf_token %}
+              <div class="input-group mb-3">
+                  <select class="form-control" name="developer">
+                      {% for user in developer %}
+                          <option value="{{ user.id }}">{{ user.name }}</option>
+                      {% endfor %}
+                  </select>
+                  <div class="input-group-append">
+                      <button class="btn btn-primary" type="submit">Add</button>
+                  </div>
+              </div>
+          </form>
+          <ul id="dev-user-list">
+              {% for developed in developed_by %}
+                <li>
+                  <div class="d-flex justify-content-between">
+                    {{ developed.developer_id.name }}
+                    <form method="POST" action="{% url 'remove_developer' project.id developed.developer_id.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button class="btn btn-link p-0" type="submit" style="color: inherit;">
+                            <i class="fa fa-trash" style="color: red;"></i>
+                        </button>
+                    </form>
+                  </div>
+                </li>
+              
+              {% endfor %}
+          </ul>
+      </div>
+  </div>
+</div>
+
+{% endblock %}
