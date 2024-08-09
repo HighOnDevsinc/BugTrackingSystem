@@ -4,12 +4,20 @@
 
 {% include 'header.html' %}
 
+{% load auth_tags %}
+
+{% user_is_manager request.user as is_manager %}
+{% user_is_qa request.user as is_qa %}
+{% user_is_developer request.user as is_developer %}
+
 <!-- Section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h3>Projects for {{ user.name }}</h2>
-        <a href="{% url 'add_project' %}" class="btn btn-primary">Create Project</a>
+        {% if is_manager %}
+          <a href="{% url 'add_project' %}" class="btn btn-primary">Create Project</a>
+        {% endif %}
       </div>
       <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
         {% for info in project_info %}

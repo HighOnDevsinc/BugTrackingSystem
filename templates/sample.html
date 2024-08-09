@@ -1,0 +1,10 @@
+<!-- <form method="POST" action="{% url 'delete_project' info.project.id %}" style="display: inline;"> -->
+    {% csrf_token %}
+    <button class="btn btn-link p-0" type="submit" style="color: inherit;">
+      <i class="fa fa-trash" style="color: black;" onmouseover="this.style.color='red';" onmouseout="this.style.color='black';"></i>
+    </button>
+  <!-- </form> -->
+  &nbsp; &nbsp;
+  <!-- <a href="{% url 'edit_project' info.project.id %}" class="ml-3"> -->
+    <i class="fa fa-pencil-alt" style="color: black;" onmouseover="this.style.color='green';" onmouseout="this.style.color='black';"></i>
+  <!-- </a> -->

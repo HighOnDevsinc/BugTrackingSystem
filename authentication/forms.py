@@ -38,14 +38,15 @@ class SignUpForm(UserCreationForm):
     )
     type = forms.ChoiceField(
         choices=BLANK_CHOICE_DASH + MyUser.TYPE_CHOICES,
+        required=True,
         label="",
         widget=forms.Select(attrs={
             'class': 'form-control',
-            'placeholder': 'Type'
         }),
     )
     email = forms.EmailField(
         label="",
+        required=True,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Email'
@@ -56,6 +57,7 @@ class SignUpForm(UserCreationForm):
     )
     password1 = forms.CharField(
         label="",
+        required=True,
         widget=forms.PasswordInput(attrs={
             'class': 'form-control',
             'placeholder': 'Password'
@@ -68,6 +70,7 @@ class SignUpForm(UserCreationForm):
     )
     password2 = forms.CharField(
         label="",
+        required=True,
         widget=forms.PasswordInput(attrs={
             'class': 'form-control',
             'placeholder': 'Confirm Password'
