@@ -1,0 +1,52 @@
+<div class="col mb-5">
+  <div class="card h-100">
+      <!-- Screenshot at the top -->
+      <img src="{{ task.screenshot.url }}" class="card-img-top" alt="Screenshot" style="object-fit: cover; height: 200px;">
+
+      <!-- Project details-->
+      <div class="card-body p-4">
+        <div class="text-center">
+          <!-- Project title-->
+          <h5 class="fw-bolder">{{ task.title }}</h5>
+          <!-- Project deadline-->
+          <p class="text-muted">Deadline: {{ task.deadline }}</p>
+          <!-- Project type-->
+          <p class="text-muted">Type: {{ task.type }}</p>
+        </div>
+      </div>
+
+      <!-- Project actions-->
+      <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+        <div class="d-flex justify-content-between align-items-center">
+          <!-- Status on the bottom left -->
+          {% if is_developer %}
+            {% include 'status_update.html' %}
+          <!-- Edit and Delete icons on the bottom right -->
+          {% elif is_qa %}
+          <!-- Status on the bottom left -->
+          <div class="text-left">
+            {% if task.status == 'new' %}
+              <span class="badge bg-light" style="color: red; font-size: 20px;">{{ task.status }}</span>
+            {% elif task.status == 'started' %}
+              <span class="badge bg-light" style="color: orange; font-size: 20px;">{{ task.status }}</span>
+            {% elif task.status == 'completed' or task.status == 'resolved' %}
+              <span class="badge bg-light" style="color: green; font-size: 20px;">{{ task.status }}</span>
+            {% endif %}
+          </div>
+          <div class="d-flex">
+              <form method="POST" action="{% url 'delete_task' project.id task.id %}" style="display: inline;">
+                {% csrf_token %}
+                <button class="btn btn-link p-0" type="submit" style="color: inherit;">
+                  <i class="fa fa-trash" style="color: black;" onmouseover="this.style.color='red';" onmouseout="this.style.color='black';"></i>
+                </button>
+              </form>
+              &nbsp; &nbsp;
+              <a href="{% url 'edit_task' project.id task.id %}" class="ml-3">
+                <i class="fa fa-pencil-alt" style="color: black;" onmouseover="this.style.color='green';" onmouseout="this.style.color='black';"></i>
+              </a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+  </div>
+</div>

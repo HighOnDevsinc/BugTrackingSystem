@@ -8,4 +8,5 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('authentication/', include('authentication.urls')),
     path('projects/', include('project.urls')),
+
 ]

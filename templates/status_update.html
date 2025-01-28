@@ -1,0 +1,13 @@
+<form method="post" action="{% url 'status_update' project.id task.id %}">
+    {% csrf_token %}
+    <select name="update_option">
+        <option value="new" {% if task.status == 'new' %}selected{% endif %}>New</option>
+        <option value="started" {% if task.status == 'started' %}selected{% endif %}>Started</option>
+        {% if task.type == 'feature' %}
+            <option value="completed" {% if task.status == 'completed' %}selected{% endif %}>Completed</option>
+        {% elif task.type == 'bug' %}
+            <option value="resolved" {% if task.status == 'resolved' %}selected{% endif %}>Resolved</option>
+        {% endif %}
+    </select>
+    <button type="submit">Update</button>
+</form>
